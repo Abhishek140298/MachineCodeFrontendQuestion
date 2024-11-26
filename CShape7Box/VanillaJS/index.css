@@ -1,0 +1,32 @@
+body{
+
+    display: flex;
+    justify-content: center;
+    
+
+}
+
+.root_box{
+    
+    height: 420px;
+    width: 420px;
+    display: flex;
+    flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.box_highlight{
+    margin-right: 2px;
+    height:30% ;
+    width: 30%;
+    background-color: white;
+    border: 1px solid black;
+}
+.box_no_highlight{
+    margin-right: 2px;
+
+    height:30% ;
+    width: 30%;
+   
+}
