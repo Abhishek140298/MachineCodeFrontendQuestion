@@ -16,7 +16,7 @@ Handle multiple API calls triggered by rapid scrolling.
 
 This problem tests your understanding of CSS responsiveness, refs, Intersection Observer API, AbortController, and signals for API handling.  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef} from "react";
 
 ///Requirement
 //Make the component and fetch the data from the api
@@ -29,6 +29,8 @@ const InfiniteScroll: React.FC = () => {
 
 const [images,setImages]=useState([])
 const [page,setPage]=useState(1)
+const targetRef=useRef(null)
+const [visible,setVisible]=useState(false)
 const limit=3
   //Api Fetch
   const fetchImages = async (limit: number, page: number) => {
@@ -39,10 +41,15 @@ const limit=3
   };
 
 
+
+
   //
 const handleScroll=(event:object)=>{
-console.log("Event",event)
-if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10) {
+  console.log("Event",visible)
+
+//window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10 ///Without intersection API
+if (visible) {
+  console.log("Event",event)
     setPage(prev=>prev+1)
     fetchImages(limit,page)}
 }
@@ -53,10 +60,34 @@ if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight
 
   }, []);
 
+useEffect(()=>{
+const observer=new IntersectionObserver((entries)=>{
+const [entry]=entries
+
+setVisible(entry.isIntersecting)
+
+},{
+  root:null,
+  rootMargin:'0px',
+  threshold:0.5
+})
+
+if(targetRef.current)observer.observe(targetRef.current)
+console.log("Jai shree Ram");
+
+  return(()=>{
+    if(targetRef.current)observer.unobserve(targetRef.current)
+  })
+
+},[])
+
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    console.log("fdjhkjsbjk",visible);
+    
+    handleScroll("evvent")
+   // window.addEventListener("scroll", handleScroll);
+ //   return () => window.removeEventListener("scroll", handleScroll);
+  }, [visible]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }} >
@@ -69,6 +100,7 @@ if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight
           />
         </span>
       ))}
+      <div ref={targetRef} style={{marginTop:'30px'}}>Loading ....</div>
     </div>
   );
 };
