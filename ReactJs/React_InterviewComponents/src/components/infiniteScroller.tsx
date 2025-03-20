@@ -42,18 +42,26 @@ const limit=3
   //
 const handleScroll=(event:object)=>{
 console.log("Event",event)
+if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10) {
+    setPage(prev=>prev+1)
+    fetchImages(limit,page)}
 }
 
   useEffect(() => {
-     const images=fetchImages(30,1)
+     const images=fetchImages(limit,page)
     
 
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column" }} onScroll={handleScroll}>
+    <div style={{ display: "flex", flexDirection: "column" }} >
       {images.map((image) => (
-        <span>
+        <span key={image.id}>
           <img
             style={{ width: "400px", height: "300px" }}
             src={image.download_url}
