@@ -106,3 +106,25 @@ console.log("Jai shree Ram");
 };
 
 export default InfiniteScroll;
+
+
+
+/*
+import Login from './login
+
+export default hocAuthentication(Component){
+return function Authentication(props){
+const [login,setLogin]=useState()
+
+useEffect(()=>{
+setLogin(true)
+},[])
+
+if(login)<Compnent />
+else <Login/>
+
+}
+}
+*/
+
+
