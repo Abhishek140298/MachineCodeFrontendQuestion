@@ -5,12 +5,13 @@ import './App.css'
 import Todo from './components/todo'
 import Accordian from './components/accordian'
 import InfiniteScroll from './components/infiniteScroller'
+import AnalogClock from './components/AnalogClock'
 
 function App() {
 
   return (
     <>
-    <InfiniteScroll/>
+    <AnalogClock/>
     </>
   )
 }
