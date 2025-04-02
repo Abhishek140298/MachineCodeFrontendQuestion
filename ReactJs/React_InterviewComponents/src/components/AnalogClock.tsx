@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const AnalogClock = () => {
-  const [time, setTime] = useState(new Date());
+const AnalogClock:React.FC = () => {
+  const [time, setTime] = useState<Date>(new Date());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -10,16 +10,15 @@ const AnalogClock = () => {
 
     return () => clearInterval(interval);
   }, []);
-  const second = time.getSeconds();
-  const minute = time.getDate();
-  const hours = time.getHours();
+  const second:number = time.getSeconds();
+  const minute:number = time.getDate();
+  const hours:number = time.getHours();
 
-  const secondsDegree = (second / 60) * 360;
-  const minutedeg = (minute / 60) * 360 + (second / 60) * 6;
+  const secondsDegree:number = (second / 60) * 360;
+  const minutedeg:number = (minute / 60) * 360 + (second / 60) * 6;
 
-  const hourDeg = (hours / 12) * 360 + (minute / 60) * 30;
+  const hourDeg:number = (hours / 12) * 360 + (minute / 60) * 30;
 
-  console.log("hjsdhjf", minute, second);
 
   return (
     <div
